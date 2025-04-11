@@ -1,67 +1,73 @@
-# All In One server
-All In One server. apache2, php, phpmyadmin and mariadb in one Alpine Linux docker image.
+# All In One (AIO) Server
+
+A collection of Docker images based on Alpine Linux designed for development and production environments.
 
 ## Overview
-The "aio-server" Docker image is a comprehensive web development environment that simplifies the process of setting up a complete server stack for web applications. This versatile image is built on Alpine Linux (alpine:3.20) and offers multiple tags, each tailored to specific use cases. Whether you need a full-stack web server with Apache, PHP, PHPMyAdmin, and MariaDB or a minimalistic setup with just Apache and PHP.
 
-## Tags
+AIO provides lightweight, efficient Docker images for various server environments, all built on Alpine Linux for minimal footprint and maximum performance.
 
-| Tag      | Description                                            |
-|----------|--------------------------------------------------------|
-| latest   | Includes Apache, PHP, PHPMyAdmin, and MariaDB servers. |
-| web      | Includes Apache and PHP only.                          |
-| mariadb  | Includes MariaDB server only.                          |
+## Available Images
 
-## Usage
+- **latest**: Core Alpine image that serves as the base for all other images
+- **bun**: Bun JavaScript runtime environment
+- **mariadb**: MariaDB database server
+- **node**: Node.js JavaScript runtime
+- **pg**: PostgreSQL database server
+- **php**: PHP with Apache web server
 
-### Pull the Docker Image
-You can pull the image from Docker Hub using the following command:
+## Features
+
+- All images based on Alpine Linux for minimal size
+- Cross-platform compatibility (supports both x64 and ARM64)
+- Simplified configuration via environment variables
+- Pre-configured with sensible defaults
+- Consistent interface across different services
+
+## Quick Start
 
 ```bash
-docker pull tdim/aio-server:tag
+# Pull the image you need
+docker pull codjix/aio:php
+
+# Run the container
+docker run -d -p 80:80 -v $(pwd):/var/www/localhost/htdocs codjix/aio:php
+
+# For database containers
+docker run -d -p 3306:3306 -v mysql_data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=securepassword codjix/aio:mariadb
 ```
-> Replace "tag" with the desired tag (e.g., latest, mariadb, web).
 
-### Run Containers
-Once you've pulled the image, you can run containers with different configurations based on your needs. Below are some basic examples:
+## Docker Compose
 
-- Just for web :
-  ```bash
-  docker run -rm --name project-web -p 3000:80 -v /path/to/project:/var/www/localhost/htdocs tdim/aio-server:web
-  ```
-- Just for database :
-  ```bash
-  docker run -rm --name project-db -p 3306:3306 -v /path/to/safe/place/db-data:/run/mysqld tdim/aio-server:mariadb
-  ```
-- For AMP server with phpmyadmin :
-  ```bash
-  docker run -rm -name project -p 3000:80 -p 8080:8080 -p 3306:3306 -v /path/to/safe/place/db-data:/run/mysqld -v /path/to/project:/var/www/localhost/htdocs tdim/aio-server:latest
-  ```
-- For Docker compose take a look at [docker-compose.md](https://github.com/Hima-Pro/aio-server/blob/main/docker-compose.md)
+Example docker-compose.yml for a PHP and MariaDB setup:
 
-### Exposed ports
-| Image tag       | Port     | Service                       |
-|-----------------|----------|-------------------------------|
-| latest, web     | 80       | Apache web server             |
-| latest, mariadb | 3306     | MariaDB server                |
-| latest          | 8080     | phpmyadmin                    |
+```yaml
+version: '3'
 
-### Environment variables
+services:
+  web:
+    image: codjix/aio:php
+    ports:
+      - "80:80"
+    volumes:
+      - ./www:/var/www/localhost/htdocs
+    depends_on:
+      - db
 
-| Image tag        | Variable            | Description                                 |
-|------------------|---------------------|---------------------------------------------|
-| latest, mariadb  | MYSQL_ROOT_PASSWORD | Default root password for mariadb           |
+  db:
+    image: codjix/aio:mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: securepassword
+    volumes:
+      - mariadb_data:/var/lib/mysql
 
-### Configuration and data directories
-You can customize the container configurations by modifying environment variables, volumes, or other settings as needed. Please refer to the official documentation of each software component (e.g., Apache, PHP, MariaDB) for detailed configuration options.
+volumes:
+  mariadb_data:
+```
 
-## Important data directories :
-- `/app` for logs, pid files and configs
-- `/usr/share/webapps/phpmyadmin` phpmyadmin installation directory
-- `/run/mysqld` MariaDB data directory
+## Documentation
+
+For detailed information on each image, please see the [documentation](./docs/README.md).
 
 ## License
-This Docker image is distributed under the [MIT License](https://github.com/Hima-Pro/aio-server/blob/main/LICENSE).
 
-## Issues and Contributions
-If you encounter issues or would like to contribute to the development of this project, please visit the [Hima-Pro/aio-server](https://github.com/Hima-Pro/aio-server) and create an issue or pull request.
+This project is licensed under the MIT License.

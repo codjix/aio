@@ -25,20 +25,19 @@ usage() {
     echo "  -v, --version            Print version"
     echo ""
     echo "Image Types:"
-    echo "  latest                   Build an image with apache, php, phpmyadmin and mariadb server"
-    echo "  mariadb                  Build an image with mariadb server only"
-    echo "  web                      Build an image with apache and php only"
+    echo "  latest                   Core image."
+    echo "  bun                      Bun image."
+    echo "  mariadb                  MariaDB image."
+    echo "  node                     Node.js image."
+    echo "  pg                       PostgreSQL image."
+    echo "  php                      PHP image."
     echo ""
     exit 1
 }
 
-# Default message if not provided
-MESSAGE="developer did not provide any changes"
-
 # Parse command line options
 while [[ $# -gt 0 ]]; do
-    key="$1"
-    case $key in
+    case "$1" in
         -h|--help)
             banner
             usage
@@ -59,22 +58,28 @@ if [ $# -eq 0 ]; then
     usage
 fi
 
+banner
 # Check for the image type
 case "$1" in
     latest)
-        banner
-        docker buildx build -t tdim/aio-server:latest -f ./Dockerfile .
+        docker buildx build -t codjix/aio:latest -f ./src/latest/Dockerfile .
+        ;;
+    bun)
+        docker buildx build -t codjix/aio:bun -f ./src/bun/Dockerfile .
         ;;
     mariadb)
-        banner
-        docker buildx build -t tdim/aio-server:mariadb -f ./Dockerfile.mariadb .
+        docker buildx build -t codjix/aio:mariadb -f ./src/mariadb/Dockerfile .
         ;;
-    web)
-        banner
-        docker buildx build -t tdim/aio-server:web -f ./Dockerfile.web .
+    node)
+        docker buildx build -t codjix/aio:node -f ./src/node/Dockerfile .
+        ;;
+    pg)
+        docker buildx build -t codjix/aio:pg -f ./src/pg/Dockerfile .
+        ;;
+    php)
+        docker buildx build -t codjix/aio:php -f ./src/php/Dockerfile .
         ;;
     *)
-        banner
         # Invalid image type
         usage "Invalid option or image type: $1"
         exit 1
