@@ -9,7 +9,7 @@ COPY ./src/latest/entrypoint.sh ./entrypoint.sh
 
 # Install core dependencies
 WORKDIR /app-ci/pkgs
-RUN apk update && apk fetch -R -o . xz su-exec && \
+RUN apk update && apk add --no-cache xz su-exec && \
     chmod +x /app-ci/entrypoint.sh
 
 FROM alpine:3.20
