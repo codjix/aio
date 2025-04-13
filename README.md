@@ -14,6 +14,7 @@ AIO provides lightweight, efficient Docker images for various server environment
 - **node**: Node.js JavaScript runtime
 - **pg**: PostgreSQL database server
 - **php**: PHP with Apache web server
+- **redis**: Redis in-memory data store
 
 ## Features
 

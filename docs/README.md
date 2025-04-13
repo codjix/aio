@@ -10,6 +10,7 @@ This documentation provides detailed information about all the container images 
 - [Node.js](./node.md) - Node.js JavaScript runtime
 - [PostgreSQL](./pg.md) - PostgreSQL database server
 - [PHP](./php.md) - PHP with Apache web server
+- [Redis](./redis.md) - Redis in-memory data store
 
 ## Common Usage
 

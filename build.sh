@@ -31,6 +31,7 @@ usage() {
     echo "  node                     Node.js image."
     echo "  pg                       PostgreSQL image."
     echo "  php                      PHP image."
+    echo "  php                      Redis image."
     echo ""
     exit 1
 }
@@ -78,6 +79,9 @@ case "$1" in
         ;;
     php)
         docker buildx build -t codjix/aio:php -f ./src/php/Dockerfile .
+        ;;
+    redis)
+        docker buildx build -t codjix/aio:redis -f ./src/redis/Dockerfile .
         ;;
     *)
         # Invalid image type
