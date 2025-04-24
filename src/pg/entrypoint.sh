@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. /app-ci/entrypoint.sh echo ""
+/app-ci/entrypoint.sh echo ""
 
 # Prepare software
 alias pgrun="su-exec postgres"
@@ -62,7 +62,6 @@ echo "   |          v |  | v      |"
 echo "   |            \__/        |"
 echo "   |                        |"
 echo "   |  Starting PostgreSQL   |"
-echo "   |  With: codjix/aio      |"
 echo "   +------------------------+"
 
 # Run current

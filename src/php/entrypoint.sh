@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. /app-ci/entrypoint.sh echo ""
+/app-ci/entrypoint.sh echo ""
 
 # Prepare software
 if [ ! -f /etc/php83/conf.d/custom.ini ]; then

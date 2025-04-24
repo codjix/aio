@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. /app-ci/entrypoint.sh echo ""
+/app-ci/entrypoint.sh echo ""
 
 # Run current
 if [ $# -eq 0 ]; then

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. /app-ci/entrypoint.sh echo ""
+/app-ci/entrypoint.sh echo ""
 
 # Prepare software
 if [ -f /app-ci/bun.tar.xz ]; then

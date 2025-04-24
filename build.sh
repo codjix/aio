@@ -31,7 +31,7 @@ usage() {
     echo "  node                     Node.js image."
     echo "  pg                       PostgreSQL image."
     echo "  php                      PHP image."
-    echo "  php                      Redis image."
+    echo "  redis                    Redis image."
     echo ""
     exit 1
 }

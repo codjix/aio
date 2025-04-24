@@ -1,6 +1,7 @@
 #!/bin/sh
+set -e
 
-. /app-ci/entrypoint.sh echo ""
+/app-ci/entrypoint.sh echo ""
 
 # Prepare software
 if [ -n "$REDIS_PASSWORD" ]; then

@@ -10,7 +10,7 @@ jobs:
       matrix:
         include:
           - variant: latest
-            version: 1.0.0
+            version: 1.0.2
           - variant: bun
             version: 1.2.9
           - variant: mariadb
