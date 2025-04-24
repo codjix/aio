@@ -1,5 +1,8 @@
 #!/bin/sh
 
+. /app-ci/entrypoint.sh echo ""
+
+# Prepare software
 alias pgrun="su-exec postgres"
 
 mkcluster(){
@@ -59,7 +62,13 @@ echo "   |          v |  | v      |"
 echo "   |            \__/        |"
 echo "   |                        |"
 echo "   |  Starting PostgreSQL   |"
-echo "   |  By: codjix/aio        |"
+echo "   |  With: codjix/aio      |"
 echo "   +------------------------+"
 
-pgrun "postgres"
+# Run current
+if [ $# -eq 0 ]; then
+  pgrun postgres
+fi
+
+# Run next
+exec "$@"
