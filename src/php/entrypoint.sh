@@ -1,5 +1,8 @@
 #!/bin/sh
 
+. /app-ci/entrypoint.sh echo ""
+
+# Prepare software
 if [ ! -f /etc/php83/conf.d/custom.ini ]; then
   cat << EOF > /etc/php83/conf.d/custom.ini
 max_file_uploads = 1024
@@ -10,8 +13,10 @@ EOF
   sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/httpd.conf
 fi
 
-if [ "${1#-}" != "${1}" ] || [ -z "$(command -v "${1}")" ] || { [ -f "${1}" ] && ! [ -x "${1}" ]; }; then
-  set -- php -v
+# Run current
+if [ $# -eq 0 ]; then
+  php -v
 fi
 
+# Run next
 exec "$@"
