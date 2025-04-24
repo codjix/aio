@@ -11,8 +11,8 @@ The `codjix/aio:mariadb` image provides a lightweight MariaDB database server bu
 ## Features
 
 - MariaDB 10.11.11 database server
-- Automatic initialization and database creation(soon)
-- Password generation for root user if not specified
+<!-- - Automatic initialization and database creation(soon) -->
+- Default password for root user if not specified
 - Optimized for minimal footprint
 - Persistent data storage
 
@@ -43,7 +43,7 @@ docker run -d --name aio-mariadb \
 
 ## Environment Variables
 
-- `MARIADB_ROOT_PASSWORD`: Root user password (default: randomly generated and saved to `/app-ci/mysql-root-pw.txt`)
+- `MARIADB_ROOT_PASSWORD`: Root user password (default: mariadb)
 
 ## Volumes
 
