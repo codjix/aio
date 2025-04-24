@@ -1,14 +1,17 @@
 #!/bin/sh
 
-# 1. Install packages
+# Prepare software
 if [ -d /app-ci/pkgs ]; then
-  apk add --no-network /app-ci/pkgs/*.apk
+  echo "Installing packages..."
+  apk add --no-network /app-ci/pkgs/*.apk > /dev/null
+  echo "Done."
   rm -rf /app-ci/pkgs
 fi
 
-if [ "${1#-}" != "${1}" ] || [ -z "$(command -v "${1}")" ] || { [ -f "${1}" ] && ! [ -x "${1}" ]; }; then
-  set -- sh
+# Run current
+if [ $# -eq 0 ]; then
+  sh
 fi
 
-# 2. Excute $@
+# Run next
 exec "$@"

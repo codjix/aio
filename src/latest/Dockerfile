@@ -1,5 +1,7 @@
+# Base image
 FROM alpine:3.20
 
+# Image inputs
 ARG VARIANT="latest"
 ARG VERSION=1.0.0
 
